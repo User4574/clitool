@@ -1,0 +1,3 @@
+h1. Make CLIs in Ruby quickly and simply
+
+Got fed up of writing the boilerplate every time. WIP. Will get better. Maybe. If I cba.

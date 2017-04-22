@@ -1,0 +1,47 @@
+#!/usr/bin/env ruby
+
+load "lib/clitool"
+
+$state = {
+  :path => ["foo", "bar"]
+}
+
+Signal.trap("SIGINT") do
+  puts "exit"
+  exit 0
+end
+
+prompt do
+  $state[:path].join("/") + "> "
+end
+
+command /^path set ([^ ]*)$/ do |match|
+  $state[:path] = match[1].split("/")
+end
+
+command /^path push ([^ ]*)$/ do |match|
+  $state[:path].push(match[1].split("/"))
+end
+
+command /^path pop$/ do
+  $state[:path].pop
+end
+
+command /^ls$/ do
+  path = $state[:path].join("/")
+  if Dir.exist?(path) then
+    puts Dir.entries(path)
+  else
+    puts "No such directory: #{path}"
+  end
+end
+
+command /^ex(it?)?$/ do
+  exit 0
+end
+
+command /.*/ do |match|
+  puts "Bad command: #{match[0]}"
+end
+
+clitool
