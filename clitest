@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
-load "lib/clitool"
+require "./lib/clitool"
+include CLITool
 
 $state = {
   :path => ["foo", "bar"]
